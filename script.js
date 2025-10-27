@@ -45,15 +45,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Definisi Map Backgrounds ---
     // Pastikan nama file sesuai dengan yang ada di folder 'assets' Anda
     const mapBackgrounds = {
-        city_intersection: './assets/map_city_intersection.png',
-        park_road: './assets/map_park_road.png',
-        city_street_scooter: './assets/map_city_street_scooter.png',
-        urban_houses: './assets/map_urban_houses.png',
-        street_buildings_right: './assets/map_street_buildings_right.png',
-        street_buildings_left: './assets/map_street_buildings_left.png',
-        traffic_light_bus: './assets/map_traffic_light_bus.png',
-        bus_stop: './assets/map_bus_stop.png',
-        grandmas_house: './assets/map_grandmas_house.png'
+        city_intersection: './assets/map_city_intersection.jpg',
+        park_road: './assets/map_park_road.jpg',
+        city_street_scooter: './assets/map_city_street_scooter.jpg',
+        urban_houses: './assets/map_urban_houses.jpg',
+        street_buildings_right: './assets/map_street_buildings_right.jpg',
+        street_buildings_left: './assets/map_street_buildings_left.jpg',
+        traffic_light_bus: './assets/map_traffic_light_bus.jpg',
+        bus_stop: './assets/map_bus_stop.jpg',
+        grandmas_house: './assets/map_grandmas_house.jpg'
     };
 
     // --- Data Permainan (15+ Stage) ---
