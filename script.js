@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const introScreen = document.getElementById('intro-screen'); // Elemen untuk halaman intro
+    const introStartButton = document.getElementById('intro-start-button'); // Tombol untuk memulai dari intro screen
     const startScreen = document.getElementById('start-screen');
     const gamePlay = document.getElementById('game-play');
     const endScreen = document.getElementById('end-screen');
@@ -32,7 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let playerName = '';
     let playerGender = null; // 'boy' atau 'girl'
 
-    // Path relatif ke folder assets untuk gambar karakter PNG yang diunduh
+    // URL atau path relatif ke folder assets untuk gambar karakter PNG
+    // Menggunakan URL Imgur dari screenshot terakhir Anda untuk konsistensi
     let characterImages = {
         boy: './assets/char_boy_school.png',
         girl: './assets/char_girl_school.png'
@@ -100,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- Pertanyaan 4: Rambu Perlintasan Pejalan Kaki di Depan ---
         {
             type: 'question',
-            question: "Lampu hijau menyala, [playerName] melanjutkan perjalanan. [playerName] melihat rambu ini (Penyebaran pejalan kaki). Apa artinya?",
+            question: "Lampu hijau menyala, [playerName] melanjutkan perjalanan. [playerName] melihat rambu ini (Perlintasan pejalan kaki). Apa artinya?",
             sign: './assets/sign_pedestrian_crossing_ahead.png',
             options: [
                 { text: "Jalan biasa", correct: false },
@@ -310,9 +313,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fungsi untuk menampilkan layar yang ditentukan dan menyembunyikan yang lain
     function showScreen(screen) {
+        // Menyembunyikan semua layar yang mungkin aktif
+        introScreen.classList.add('hidden');
         startScreen.classList.add('hidden');
         gamePlay.classList.add('hidden');
         endScreen.classList.add('hidden');
+        // Menampilkan layar yang diminta
         screen.classList.remove('hidden');
     }
 
@@ -492,10 +498,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Mengatur ulang gambar ikon di tombol karakter ke default saat restart
         document.querySelector(`.char-btn[data-char="boy"] img`).src = characterImages['boy'];
         document.querySelector(`.char-btn[data-char="girl"] img`).src = characterImages['girl'];
-        showScreen(startScreen);
+        showScreen(introScreen); // Kembali ke intro screen
     }
 
     // --- Event Listeners ---
+    // Mendengarkan klik tombol 'Mulai Game' di intro screen
+    introStartButton.addEventListener('click', () => {
+        showScreen(startScreen); // Transisi ke layar pemilihan karakter
+        // Optional: play a short sound effect or animation here
+    });
+
     // Mendengarkan perubahan input nama karakter
     playerNameInput.addEventListener('input', validateStart);
 
@@ -516,9 +528,10 @@ document.addEventListener('DOMContentLoaded', () => {
         processStage();
     });
 
-    // Pengaturan awal saat halaman dimuat
-    showScreen(startScreen);
-    // Memastikan gambar ikon di tombol karakter dimuat saat awal
+    // Pengaturan awal saat halaman dimuat: Tampilkan intro screen
+    showScreen(introScreen);
+    // Memastikan gambar ikon di tombol karakter dimuat saat awal (hanya jika startScreen terlihat, tapi baik untuk antisipasi)
+    // Ini mungkin tidak langsung terlihat karena startScreen hidden, tapi menjaga konsistensi.
     document.querySelector(`.char-btn[data-char="boy"] img`).src = characterImages['boy'];
     document.querySelector(`.char-btn[data-char="girl"] img`).src = characterImages['girl'];
 });
