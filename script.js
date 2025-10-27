@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const introScreen = document.getElementById('intro-screen'); // Elemen untuk halaman intro
-    const introStartButton = document.getElementById('intro-start-button'); // Tombol untuk memulai dari intro screen
+    const introScreen = document.getElementById('intro-screen');
+    const introStartButton = document.getElementById('intro-start-button');
     const startScreen = document.getElementById('start-screen');
     const gamePlay = document.getElementById('game-play');
     const endScreen = document.getElementById('end-screen');
@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const playerNameInput = document.getElementById('playerName');
     const charButtons = document.querySelectorAll('.char-btn');
     const playerAvatar = document.getElementById('player-avatar');
+    const mapBackgroundImg = document.getElementById('map-background-img'); // Elemen img untuk map background
     const dialogueText = document.getElementById('dialogue-text');
     const questionBox = document.getElementById('question-box');
     const questionText = document.getElementById('question-text');
@@ -34,11 +35,24 @@ document.addEventListener('DOMContentLoaded', () => {
     let playerName = '';
     let playerGender = null; // 'boy' atau 'girl'
 
-    // URL atau path relatif ke folder assets untuk gambar karakter PNG
-    // Menggunakan URL Imgur dari screenshot terakhir Anda untuk konsistensi
+    // Path relatif ke folder assets untuk gambar karakter PNG
     let characterImages = {
-        boy: './assets/char_boy_school.png',
-        girl: './assets/char_girl_school.png'
+        boy: './assets/char_boy_school.png', // Menggunakan nama file yang Anda unduh
+        girl: './assets/char_girl_school.png' // Menggunakan nama file yang Anda unduh
+    };
+
+    // --- Definisi Map Backgrounds ---
+    // Pastikan nama file sesuai dengan yang ada di folder 'assets' Anda
+    const mapBackgrounds = {
+        city_intersection: './assets/map_city_intersection.png',
+        park_road: './assets/map_park_road.png',
+        city_street_scooter: './assets/map_city_street_scooter.png',
+        street_buildings_right: './assets/map_street_buildings_right.png',
+        street_buildings_left: './assets/map_street_buildings_left.png',
+        urban_houses: './assets/map_urban_houses.png',
+        traffic_light_bus: './assets/map_traffic_light_bus.png',
+        bus_stop: './assets/map_bus_stop.png',
+        grandmas_house: './assets/map_grandmas_house.png'
     };
 
     // --- Data Permainan (15+ Stage) ---
@@ -46,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const gameStages = [{
             type: 'dialogue',
             text: "Halo! Namaku [playerName]. Aku mau pergi ke rumah nenek di seberang kota. Yuk, bantu aku sampai tujuan!",
+            map: 'city_intersection', // Map awal
             avatarX: '10%',
             avatarY: 'bottom'
         },
@@ -54,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'question',
             question: "[playerName] mulai berjalan. Di depan ada rambu ini. Apa artinya?",
             sign: './assets/sign_general_warning.png',
+            map: 'city_intersection',
             options: [
                 { text: "Berhenti!", correct: false },
                 { text: "Hati-hati, ada bahaya!", correct: true },
@@ -71,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'question',
             question: "[playerName] melihat penjual jajan dan ada rambu ini di dekatnya. Apa artinya?",
             sign: './assets/sign_no_parking.png',
+            map: 'city_street_scooter', // Map spesifik untuk area jalan/pedagang
             options: [
                 { text: "Boleh parkir sebentar", correct: false },
                 { text: "Dilarang parkir di area ini", correct: true },
@@ -88,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'question',
             question: "[playerName] sampai di perempatan jalan. Lampu lalu lintas menyala merah! Apa yang harus [playerName] lakukan?",
             trafficLight: 'red',
+            map: 'street_buildings_right', // Map spesifik dengan lampu lalu lintas
             options: [
                 { text: "Segera menyeberang", correct: false },
                 { text: "Berhenti dan tunggu lampu hijau", correct: true },
@@ -105,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'question',
             question: "Lampu hijau menyala, [playerName] melanjutkan perjalanan. [playerName] melihat rambu ini (Perlintasan pejalan kaki). Apa artinya?",
             sign: './assets/sign_pedestrian_crossing_ahead.png',
+            map: 'street_buildings_left', // Map spesifik dengan zebra cross
             options: [
                 { text: "Jalan biasa", correct: false },
                 { text: "Perlintasan pejalan kaki", correct: true },
@@ -121,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             type: 'question',
             question: "[playerName] ingin menyeberang di zebra cross, tapi ada mobil melaju kencang. Apa yang harus [playerName] lakukan?",
+            map: 'street_buildings_left',
             options: [
                 { text: "Langsung menyeberang saja", correct: false },
                 { text: "Tunggu mobil lewat dan pastikan aman", correct: true },
@@ -138,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'question',
             question: "Jalanan terlihat basah. [playerName] melihat rambu ini. Apa arti rambu ini?",
             sign: './assets/sign_slippery_road.png',
+            map: 'park_road', // Map jalan di taman
             options: [
                 { text: "Boleh ngebut", correct: false },
                 { text: "Hati-hati, jalan licin!", correct: true },
@@ -154,6 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             type: 'question',
             question: "[playerName] melihat rambu jalan licin. Apa yang harus dilakukan [playerName] untuk tetap aman?",
+            map: 'park_road',
             options: [
                 { text: "Berlari agar cepat sampai", correct: false },
                 { text: "Melangkah perlahan dan hati-hati", correct: true },
@@ -171,6 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'question',
             question: "[playerName] mendekati persimpangan tanpa lampu lalu lintas. Ada rambu ini. Apa artinya?",
             sign: './assets/sign_stop.png',
+            map: 'city_intersection',
             options: [
                 { text: "Boleh langsung lewat", correct: false },
                 { text: "Berhenti total dan lihat sekitar", correct: true },
@@ -188,6 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'question',
             question: "Di jalan ini ada rambu angka 50. Apa arti rambu ini?",
             sign: './assets/sign_speed_limit_50.png',
+            map: 'urban_houses', // Map area perumahan
             options: [
                 { text: "Boleh ngebut sampai 60 km/jam", correct: false },
                 { text: "Kecepatan maksimum 50 km/jam", correct: true },
@@ -205,6 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'question',
             question: "[playerName] sampai di sebuah belokan. Ada rambu ini. Apa artinya?",
             sign: './assets/sign_mandatory_right_turn.png',
+            map: 'traffic_light_bus', // Map persimpangan kompleks
             options: [
                 { text: "Dilarang belok kanan", correct: false },
                 { text: "Wajib belok kanan", correct: true },
@@ -222,6 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'question',
             question: "Di samping jalan ada jalur khusus. Rambu ini menandakan apa?",
             sign: './assets/sign_mandatory_bicycle_lane.png',
+            map: 'bus_stop', // Map dekat halte bus
             options: [
                 { text: "Dilarang naik sepeda", correct: false },
                 { text: "Jalur khusus untuk sepeda", correct: true },
@@ -238,6 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             type: 'question',
             question: "[playerName] berjalan di dekat jalur sepeda. Apa yang harus [playerName] perhatikan?",
+            map: 'bus_stop',
             options: [
                 { text: "Berjalan di tengah jalur sepeda", correct: false },
                 { text: "Memberi ruang dan waspada pada pesepeda", correct: true },
@@ -255,6 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'question',
             question: "Jika pengemudi ingin mengisi bensin, rambu ini akan menunjukkan apa?",
             sign: './assets/sign_gas_station.png',
+            map: 'street_buildings_right', // Map jalan kota dengan bangunan
             options: [
                 { text: "Area rekreasi", correct: false },
                 { text: "Lokasi pom bensin terdekat", correct: true },
@@ -272,6 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'question',
             question: "Suara kereta api terdengar. Lalu ada rambu ini. Apa artinya?",
             sign: './assets/sign_railroad_crossing.png',
+            map: 'city_intersection', // Map umum, jika tidak ada map khusus rel kereta
             options: [
                 { text: "Ada jembatan", correct: false },
                 { text: "Ada perlintasan kereta api", correct: true },
@@ -288,6 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             type: 'question',
             question: "Saat di perlintasan kereta api, palang pintu belum tertutup tapi sirine sudah berbunyi. Apa yang harus [playerName] lakukan?",
+            map: 'city_intersection',
             options: [
                 { text: "Cepat-cepat lewat", correct: false },
                 { text: "Tunggu sampai kereta lewat dan palang pintu terbuka", correct: true },
@@ -300,11 +330,19 @@ document.addEventListener('DOMContentLoaded', () => {
             avatarX: '85%',
             avatarY: 'bottom'
         },
-        // --- Akhir Perjalanan ---
+        // --- Stage Rumah Nenek (Transisi Akhir) ---
+        {
+            type: 'dialogue',
+            text: "[playerName] akhirnya sampai di rumah nenek! Nenek sudah menunggu dengan senyum lebar. Selamat, [playerName]!",
+            map: 'grandmas_house', // Background rumah nenek
+            avatarX: '50%', // Karakter di tengah
+            avatarY: 'bottom'
+        },
+        // --- Akhir Perjalanan (Final End Screen) ---
         {
             type: 'end',
-            text: "Selamat! [playerName] berhasil sampai di rumah nenek dengan selamat dan hati-hati. Kamu hebat!",
-            avatarX: '90%', // Posisi akhir sebelum pesan selesai
+            text: "Petualangan selesai! [playerName] berhasil sampai di rumah nenek dengan selamat dan hati-hati. Kamu hebat!",
+            avatarX: '90%', // Posisi avatar tidak terlalu relevan di end screen
             avatarY: 'bottom'
         }
     ];
@@ -380,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fungsi untuk memproses stage permainan saat ini (dialog, pertanyaan, atau akhir)
     function processStage() {
         if (currentStage >= gameStages.length) {
-            endGame();
+            endGame(); // Pergi ke layar akhir utama
             return;
         }
 
@@ -390,6 +428,20 @@ document.addEventListener('DOMContentLoaded', () => {
         trafficLightContainer.classList.add('hidden');
         trafficLights.forEach(light => light.classList.remove('active'));
         nextButton.classList.add('hidden');
+
+        // Memperbarui background map berdasarkan stage
+        if (stage.map && mapBackgrounds[stage.map]) {
+            mapBackgroundImg.src = mapBackgrounds[stage.map];
+            mapBackgroundImg.style.opacity = 0; // Mulai tersembunyi
+            setTimeout(() => {
+                mapBackgroundImg.style.opacity = 1; // Fade in setelah src diganti
+            }, 50);
+        } else {
+            // Fallback jika map tidak didefinisikan atau tidak ditemukan
+            mapBackgroundImg.src = '';
+            mapBackgroundImg.style.opacity = 0;
+        }
+
 
         // Memperbarui posisi avatar di peta
         if (stage.avatarX) {
@@ -428,6 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 optionsContainer.appendChild(button);
             });
         } else if (stage.type === 'end') {
+            // Jika ini stage 'end' sebelum final end screen (misal, rumah nenek)
             dialogueText.textContent = replaceCharacterName(stage.text);
             nextButton.classList.remove('hidden');
             questionBox.classList.add('hidden');
@@ -505,7 +558,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mendengarkan klik tombol 'Mulai Game' di intro screen
     introStartButton.addEventListener('click', () => {
         showScreen(startScreen); // Transisi ke layar pemilihan karakter
-        // Optional: play a short sound effect or animation here
     });
 
     // Mendengarkan perubahan input nama karakter
@@ -530,8 +582,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Pengaturan awal saat halaman dimuat: Tampilkan intro screen
     showScreen(introScreen);
-    // Memastikan gambar ikon di tombol karakter dimuat saat awal (hanya jika startScreen terlihat, tapi baik untuk antisipasi)
-    // Ini mungkin tidak langsung terlihat karena startScreen hidden, tapi menjaga konsistensi.
+    // Memastikan gambar ikon di tombol karakter dimuat saat awal
     document.querySelector(`.char-btn[data-char="boy"] img`).src = characterImages['boy'];
     document.querySelector(`.char-btn[data-char="girl"] img`).src = characterImages['girl'];
 });
