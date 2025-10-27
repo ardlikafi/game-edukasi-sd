@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const correctSound = document.getElementById('correct-sound');
     const incorrectSound = document.getElementById('incorrect-sound');
     const winSound = document.getElementById('win-sound');
+    const buttonClickSound = document.getElementById('button-click-sound'); // Efek suara klik tombol
 
     let currentScore = 0;
     let currentStage = 0;
@@ -44,15 +45,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Definisi Map Backgrounds ---
     // Pastikan nama file sesuai dengan yang ada di folder 'assets' Anda
     const mapBackgrounds = {
-        city_intersection: './assets/map_city_intersection.jpg',
-        park_road: './assets/map_park_road.jpg',
-        city_street_scooter: './assets/map_city_street_scooter.jpg',
-        street_buildings_right: './assets/map_street_buildings_right.jpg',
-        street_buildings_left: './assets/map_street_buildings_left.jpg',
-        urban_houses: './assets/map_urban_houses.jpg',
-        traffic_light_bus: './assets/map_traffic_light_bus.jpg',
-        bus_stop: './assets/map_bus_stop.jpg',
-        grandmas_house: './assets/map_grandmas_house.jpg'
+        city_intersection: './assets/map_city_intersection.png',
+        park_road: './assets/map_park_road.png',
+        city_street_scooter: './assets/map_city_street_scooter.png',
+        urban_houses: './assets/map_urban_houses.png',
+        street_buildings_right: './assets/map_street_buildings_right.png',
+        street_buildings_left: './assets/map_street_buildings_left.png',
+        traffic_light_bus: './assets/map_traffic_light_bus.png',
+        bus_stop: './assets/map_bus_stop.png',
+        grandmas_house: './assets/map_grandmas_house.png'
     };
 
     // --- Data Permainan (15+ Stage) ---
@@ -557,6 +558,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Event Listeners ---
     // Mendengarkan klik tombol 'Mulai Game' di intro screen
     introStartButton.addEventListener('click', () => {
+        buttonClickSound.play(); // Memainkan suara klik
         showScreen(startScreen); // Transisi ke layar pemilihan karakter
     });
 
@@ -565,16 +567,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Mendengarkan klik pada tombol pemilihan karakter
     charButtons.forEach(button => {
-        button.addEventListener('click', () => selectCharacter(button.dataset.char));
+        button.addEventListener('click', () => {
+            buttonClickSound.play(); // Memainkan suara klik
+            selectCharacter(button.dataset.char);
+        });
     });
 
     // Mendengarkan klik tombol 'Mulai Petualangan'
-    startButton.addEventListener('click', startGame);
+    startButton.addEventListener('click', () => {
+        buttonClickSound.play(); // Memainkan suara klik
+        startGame();
+    });
     // Mendengarkan klik tombol 'Main Lagi' di layar akhir
-    restartButton.addEventListener('click', restartGame);
+    restartButton.addEventListener('click', () => {
+        buttonClickSound.play(); // Memainkan suara klik
+        restartGame();
+    });
 
     // Mendengarkan klik tombol 'Lanjutkan'
     nextButton.addEventListener('click', () => {
+        buttonClickSound.play(); // Memainkan suara klik
         currentStage++;
         updateProgress();
         processStage();
