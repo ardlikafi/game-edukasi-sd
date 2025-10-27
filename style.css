@@ -1,0 +1,768 @@
+/* Gaya dasar untuk body, mengatur font, background, dan penempatan konten */
+
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, #6dd5ed, #2193b0);
+    /* Background gradien biru */
+    margin: 0;
+    overflow-y: auto;
+    /* Mengizinkan scroll vertikal jika konten melebihi tinggi layar */
+    color: #333;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+/* Container utama game, mengatur tampilan dan responsivitas */
+
+#game-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 800px;
+    min-height: 600px;
+    /* Tinggi minimum untuk layar besar */
+    height: auto;
+    /* Tinggi menyesuaikan konten */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    margin: auto;
+    /* Animasi saat game container muncul */
+    animation: fadeInScale 0.8s ease-out forwards;
+}
+
+
+/* Animasi untuk memunculkan game container */
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* Gaya judul h1 dan h2 */
+
+h1,
+h2 {
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+
+/* Gaya layar awal dan layar akhir */
+
+#start-screen,
+#end-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    gap: 15px;
+    padding: 20px;
+    /* Animasi saat layar start muncul */
+    animation: slideInUp 0.7s ease-out forwards;
+}
+
+
+/* Animasi slide dari bawah ke atas */
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Gaya grup input nama karakter */
+
+.input-group {
+    margin-bottom: 20px;
+    width: 80%;
+    max-width: 300px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.input-group input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+
+/* Gaya pemilihan karakter (gender) */
+
+.character-selection {
+    margin: 20px 0;
+    width: 100%;
+    max-width: 400px;
+}
+
+.character-options {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.char-btn {
+    background-color: #ffffff;
+    border: 2px solid #a0c4ff;
+    /* Border biru muda agar terlihat tanpa hover */
+    color: #333;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    min-width: 100px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Tambah shadow agar menonjol */
+}
+
+.char-btn img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+
+/* Gaya tombol karakter saat terpilih */
+
+.char-btn.selected {
+    border-color: #007bff;
+    /* Border biru lebih gelap saat terpilih */
+    background-color: #e0f2ff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+}
+
+
+/* Efek hover untuk tombol karakter yang tidak terpilih */
+
+.char-btn:hover:not(.selected) {
+    background-color: #f0f8ff;
+    /* Warna hover sedikit berubah */
+    border-color: #7abaff;
+    /* Border hover lebih jelas */
+    transform: translateY(-2px);
+}
+
+
+/* Gaya umum untuk semua tombol */
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+    white-space: nowrap;
+}
+
+
+/* Efek hover untuk tombol umum */
+
+button:hover:not(:disabled) {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+
+/* Gaya tombol saat disabled */
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+
+/* Gaya layar permainan utama */
+
+#game-play {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* Animasi saat layar game muncul */
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+
+/* Animasi fade in */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* Gaya header (skor dan progres) */
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-weight: 600;
+    font-size: 1.1em;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+
+/* Area peta */
+
+#map-area {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    /* Menggunakan gambar background jalan */
+    background: url('./assets/map_road_background.png') no-repeat center center / cover;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Avatar pemain */
+
+#player-avatar {
+    position: absolute;
+    bottom: 20px;
+    /* Posisi awal di bagian bawah jalan */
+    left: 10%;
+    /* Posisi awal di sisi kiri */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Background transparan agar ikon terlihat */
+    padding: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: all 1s ease-in-out;
+    /* Transisi halus untuk pergerakan */
+    z-index: 10;
+    object-fit: contain;
+    /* Animasi sedikit 'melayang' */
+    animation: float 2s ease-in-out infinite;
+}
+
+
+/* Animasi melayang untuk avatar */
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+
+/* Area event (dialog, pertanyaan) */
+
+#event-area {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+
+/* Gaya teks dialog dan pertanyaan */
+
+#dialogue-box p,
+#question-text {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    color: #444;
+    min-height: 50px;
+    line-height: 1.4;
+    font-weight: 500;
+    /* Animasi teks saat muncul */
+    animation: textFadeIn 0.5s ease-out forwards;
+}
+
+
+/* Animasi fade in untuk teks */
+
+@keyframes textFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* Gaya gambar rambu */
+
+#sign-image {
+    max-width: 120px;
+    max-height: 120px;
+    margin-bottom: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: contain;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 5px;
+    background-color: #fff;
+    /* Animasi saat rambu muncul */
+    animation: bounceIn 0.6s ease-out forwards;
+}
+
+
+/* Animasi memantul masuk */
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* Container opsi jawaban */
+
+#options-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+    /* Animasi munculnya opsi */
+    animation: optionsSlideIn 0.8s ease-out forwards;
+}
+
+
+/* Animasi slide in untuk opsi jawaban */
+
+@keyframes optionsSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Gaya tombol opsi jawaban */
+
+.option-button {
+    background-color: #ffffff;
+    border: 2px solid #007bff;
+    color: #333;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.05em;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease, border-color 0.2s ease;
+    flex: 1 1 calc(50% - 24px);
+    /* Dua tombol per baris */
+    max-width: 320px;
+    text-align: center;
+    word-wrap: break-word;
+    white-space: normal;
+    /* Animasi sedikit terangkat saat muncul */
+    animation: popIn 0.4s ease-out forwards;
+    opacity: 0;
+    /* Awalnya tersembunyi untuk animasi */
+}
+
+
+/* Delay animasi untuk setiap tombol opsi */
+
+.option-button:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.option-button:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.option-button:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.option-button:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+
+/* Animasi pop in untuk tombol */
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* Penyesuaian responsif untuk tombol opsi */
+
+@media (max-width: 768px) {
+    .option-button {
+        flex: 1 1 calc(100% - 10px);
+        max-width: none;
+        font-size: 0.95em;
+        padding: 10px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .option-button {
+        font-size: 0.9em;
+        padding: 8px 10px;
+    }
+}
+
+
+/* Efek hover untuk tombol opsi */
+
+.option-button:hover:not(:disabled) {
+    background-color: #e0f2ff;
+    border-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+
+/* Gaya tombol opsi saat disabled */
+
+.option-button:disabled {
+    background-color: #f0f0f0;
+    color: #777;
+    border-color: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+
+/* Gaya tombol opsi saat benar */
+
+.option-button.correct {
+    background-color: #28a745;
+    color: white;
+    border-color: #218838;
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+
+/* Gaya tombol opsi saat salah */
+
+.option-button.incorrect {
+    background-color: #dc3545;
+    color: white;
+    border-color: #c82333;
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+
+/* Gaya tombol 'Lanjutkan' */
+
+#next-button {
+    background-color: #28a745;
+    border: 2px solid #218838;
+    padding: 12px 35px;
+    font-size: 1.15em;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
+    margin-top: 30px;
+    /* Animasi tombol saat muncul */
+    animation: scaleIn 0.5s ease-out forwards;
+    opacity: 0;
+    /* Awalnya tersembunyi */
+}
+
+
+/* Animasi scale in */
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* Efek hover untuk tombol 'Lanjutkan' */
+
+#next-button:hover:not(:disabled) {
+    background-color: #218838;
+    border-color: #1e7e34;
+    transform: translateY(-2px);
+}
+
+
+/* Gaya lampu lalu lintas */
+
+#traffic-light-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 20px auto;
+    width: 60px;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 10px;
+    /* Animasi saat lampu lalu lintas muncul */
+    animation: fadeInSlideDown 0.7s ease-out forwards;
+}
+
+
+/* Animasi fade in dan slide down */
+
+@keyframes fadeInSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.light {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #555;
+    opacity: 0.3;
+}
+
+
+/* Gaya lampu lalu lintas saat aktif */
+
+.light.red.active {
+    background-color: red;
+    opacity: 1;
+}
+
+.light.yellow.active {
+    background-color: yellow;
+    opacity: 1;
+}
+
+.light.green.active {
+    background-color: green;
+    opacity: 1;
+}
+
+
+/* Utilitas untuk menyembunyikan elemen */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* Gaya kontainer confetti untuk animasi perayaan */
+
+.confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    /* Agar tidak menghalangi interaksi */
+    z-index: 20;
+}
+
+.confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #f00;
+    /* Warna awal */
+    opacity: 0;
+    animation: fall 3s ease-in forwards;
+}
+
+
+/* Animasi jatuhnya confetti */
+
+@keyframes fall {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%) rotate(0deg);
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(720deg);
+    }
+}
+
+
+/* Media Queries untuk responsivitas */
+
+@media (max-width: 768px) {
+    #game-container {
+        width: 95%;
+        padding: 15px;
+        min-height: 500px;
+    }
+    h1,
+    h2 {
+        font-size: 1.8em;
+    }
+    #header {
+        font-size: 1em;
+        flex-direction: column;
+        align-items: center;
+    }
+    #map-area {
+        height: 250px;
+    }
+    #player-avatar {
+        width: 40px;
+        height: 40px;
+    }
+    #dialogue-box p,
+    #question-text {
+        font-size: 1.1em;
+        min-height: 40px;
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+    .char-btn img {
+        width: 60px;
+        height: 60px;
+    }
+    .char-btn {
+        min-width: 80px;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    #game-container {
+        padding: 10px;
+        min-height: 400px;
+    }
+    h1,
+    h2 {
+        font-size: 1.5em;
+    }
+    #map-area {
+        height: 200px;
+    }
+    #player-avatar {
+        width: 35px;
+        height: 35px;
+        bottom: 10px;
+        padding: 3px;
+    }
+    #dialogue-box p,
+    #question-text {
+        font-size: 1em;
+        min-height: 35px;
+    }
+    #sign-image {
+        max-width: 90px;
+        max-height: 90px;
+    }
+    .light {
+        width: 30px;
+        height: 30px;
+    }
+    .character-options {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .char-btn {
+        width: 100%;
+        max-width: 150px;
+    }
+}

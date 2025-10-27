@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Judul game yang lebih menarik -->
+    <title>Keliling Kota, Jaga Keselamatan!</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Mengimpor font Poppins dari Google Fonts untuk gaya teks yang modern -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="game-container">
+        <!-- Layar awal game untuk input nama dan pemilihan karakter -->
+        <div id="start-screen">
+            <h1>Keliling Kota, Jaga Keselamatan!</h1>
+            <p>Bantu karaktermu sampai ke rumah nenek dengan selamat!</p>
+
+            <div class="input-group">
+                <label for="playerName">Nama Karakter:</label>
+                <input type="text" id="playerName" placeholder="Masukkan nama...">
+            </div>
+
+            <div class="character-selection">
+                <label>Pilih Gender:</label>
+                <div class="character-options">
+                    <button class="char-btn" data-char="boy">
+                        <!-- Gambar ikon anak laki-laki -->
+                        <img src="./assets/char_boy_school.png" alt="Anak Laki-laki">
+                        <span>Laki-laki</span>
+                    </button>
+                    <button class="char-btn" data-char="girl">
+                        <!-- Gambar ikon anak perempuan -->
+                        <img src="./assets/char_girl_school.png" alt="Anak Perempuan">
+                        <span>Perempuan</span>
+                    </button>
+                </div>
+            </div>
+            <button id="start-button" disabled>Mulai Petualangan</button>
+            <!-- Elemen audio untuk musik latar dan efek suara -->
+            <audio id="background-music" loop src="https://www.bensound.com/bensound-music/bensound-littleidea.mp3"></audio>
+            <audio id="correct-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-in-a-game-2005.mp3"></audio>
+            <audio id="incorrect-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-2495.mp3"></audio>
+            <audio id="win-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3"></audio>
+
+        </div>
+
+        <!-- Layar utama permainan -->
+        <div id="game-play" class="hidden">
+            <!-- Header menampilkan skor dan progres pemain -->
+            <div id="header">
+                <div id="score">Skor: 0</div>
+                <div id="progress">Progress: 0%</div>
+            </div>
+            <!-- Area peta tempat karakter bergerak dan event terjadi -->
+            <div id="map-area">
+                <!-- Gambar latar belakang jalan -->
+                <img id="map-background" src="./assets/map_road_background.png" alt="Peta Jalan">
+                <!-- Avatar pemain yang bergerak di peta -->
+                <img id="player-avatar" src="" alt="Karakter Pemain">
+            </div>
+            <!-- Area event untuk dialog, pertanyaan, dan opsi jawaban -->
+            <div id="event-area">
+                <!-- Kotak dialog untuk narasi cerita -->
+                <div id="dialogue-box">
+                    <p id="dialogue-text"></p>
+                </div>
+                <!-- Kotak pertanyaan yang muncul saat ada rambu atau situasi -->
+                <div id="question-box" class="hidden">
+                    <!-- Gambar rambu lalu lintas terkait pertanyaan -->
+                    <img id="sign-image" src="" alt="Rambu Lalu Lintas" class="hidden">
+                    <!-- Tampilan lampu lalu lintas (merah, kuning, hijau) -->
+                    <div id="traffic-light-container" class="hidden">
+                        <div class="light red"></div>
+                        <div class="light yellow"></div>
+                        <div class="light green"></div>
+                    </div>
+                    <!-- Teks pertanyaan -->
+                    <p id="question-text"></p>
+                    <!-- Container untuk tombol-tombol opsi jawaban -->
+                    <div id="options-container"></div>
+                </div>
+                <!-- Tombol untuk melanjutkan ke stage berikutnya atau setelah menjawab pertanyaan -->
+                <button id="next-button" class="hidden">Lanjutkan</button>
+            </div>
+        </div>
+
+        <!-- Layar akhir game setelah petualangan selesai -->
+        <div id="end-screen" class="hidden">
+            <h2>Petualangan Selesai!</h2>
+            <p id="final-message"></p>
+            <p id="final-score"></p>
+            <button id="restart-button">Main Lagi</button>
+            <!-- Elemen untuk animasi confetti -->
+            <div class="confetti-container"></div>
+        </div>
+    </div>
+
+    <!-- Skrip JavaScript yang berisi logika game -->
+    <script src="script.js"></script>
+</body>
+
+</html>
