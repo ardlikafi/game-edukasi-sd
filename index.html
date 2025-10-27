@@ -34,13 +34,13 @@
                 <label>Pilih Gender:</label>
                 <div class="character-options">
                     <button class="char-btn" data-char="boy">
-                        <!-- Gambar ikon anak laki-laki dari screenshot Anda -->
-                        <img src="https://i.imgur.com/gK5fTzI.png" alt="Anak Laki-laki">
+                        <!-- Gambar ikon anak laki-laki -->
+                        <img src="./assets/char_boy_school.png" alt="Anak Laki-laki">
                         <span>Laki-laki</span>
                     </button>
                     <button class="char-btn" data-char="girl">
-                        <!-- Gambar ikon anak perempuan dari screenshot Anda -->
-                        <img src="https://i.imgur.com/K1x572P.png" alt="Anak Perempuan">
+                        <!-- Gambar ikon anak perempuan -->
+                        <img src="./assets/char_girl_school.png" alt="Anak Perempuan">
                         <span>Perempuan</span>
                     </button>
                 </div>
@@ -63,7 +63,9 @@
             </div>
             <!-- Area peta tempat karakter bergerak dan event terjadi -->
             <div id="map-area">
-                <!-- Gambar latar belakang jalan akan diatur di CSS -->
+                <!-- Gambar latar belakang jalan akan diatur di CSS, src akan diubah oleh JS -->
+                <img id="map-background-img" src="" alt="Latar Belakang Jalan">
+                <!-- Avatar pemain yang bergerak di peta -->
                 <img id="player-avatar" src="" alt="Karakter Pemain">
             </div>
             <!-- Area event untuk dialog, pertanyaan, dan opsi jawaban -->
