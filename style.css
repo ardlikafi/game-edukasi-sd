@@ -280,11 +280,27 @@ button:disabled {
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
-    /* Ganti URL di bawah ini dengan gambar yang Anda temukan */
-    background: url('./assets/my_awesome_road_map.jpg') no-repeat center center / cover;
-    /* Jika Anda ingin gambar ini diulang untuk mengisi area, gunakan 'repeat' dan 'auto' untuk background-size: */
-    /* background: url('./assets/my_awesome_road_map.png') repeat-x center center / auto 100%; */
+    /* Map background akan diatur per stage via JS */
+    background-color: #ccc;
+    /* Warna fallback jika gambar map tidak ada */
     box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Gambar background yang akan diubah per stage */
+
+#map-background-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Pastikan gambar mengisi area */
+    transition: opacity 0.5s ease-in-out;
+    /* Transisi halus saat gambar map berganti */
+    opacity: 1;
+    /* Awalnya terlihat */
 }
 
 
